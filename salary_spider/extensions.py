@@ -1,7 +1,6 @@
 from raygun4py import raygunprovider
 from scrapy import signals
 from scrapy.exceptions import NotConfigured
-from scrapy.signals import spider_error, item_error
 
 
 class RaygunErrorMonitoring(object):
@@ -15,8 +14,8 @@ class RaygunErrorMonitoring(object):
             raise NotConfigured
 
         extension = cls(api_key)
-        crawler.signals.connect(extension.spider_error, spider_error)
-        crawler.signals.connect(extension.item_error, item_error)
+        crawler.signals.connect(extension.spider_error, signals.spider_error)
+        crawler.signals.connect(extension.item_error, signals.item_error)
 
         return extension
 
